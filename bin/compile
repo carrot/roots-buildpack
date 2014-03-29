@@ -44,7 +44,7 @@ cp -r $bp_dir/node_modules/superstatic $build_dir/node_modules/
 
 # Create a Procfile
 status "Creating a static server Procfile"
-echo "web: ./node_modules/superstatic/bin/superstatic public . -p \$PORT" > $build_dir/Procfile
+echo "web: ./node_modules/superstatic/bin/superstatic.js public . -p \$PORT" > $build_dir/Procfile
 
 # Compile project using Roots
 # $build_dir/node_modules/roots/bin/roots compile
