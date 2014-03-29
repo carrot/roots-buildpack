@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+set -e            # fail fast
+set -o pipefail   # don't ignore exit codes when piping output
+# set -x          # enable debugging
+
+# Configuration
+build_dir=$1
+cache_dir=$2
+env_dir=$3
+bp_dir=$(cd $(dirname $0); cd ..; pwd)
+
+# Load some convenience functions like status(), echo(), and indent()
+source $bp_dir/bin/common.sh
+
+# Fetch the latest stable node version from semver.io
+node_version=$(curl --silent --get https://semver.io/node/stable)
+
+# Download node from Heroku's S3 mirror of nodejs.org/dist
+status "Downloading and installing node $node_version"
+node_url="http://s3pository.heroku.com/node/v$node_version/node-v$node_version-linux-x64.tar.gz"
+curl $node_url -s -o - | tar xzf - -C $build_dir
+
+# Move node (and npm) into ./vendor and make them executable
+mkdir -p $build_dir/vendor
+mv $build_dir/node-v$node_version-linux-x64 $build_dir/vendor/node
+chmod +x $build_dir/vendor/node/bin/*
+PATH=$PATH:$build_dir/vendor/node/bin
+
+# Run subsequent node/npm commands from the build path
+cd $build_dir
+
+# Create a node_modules directory if one doesn't already exist
+mkdir -p $build_dir/node_modules
+
+if [ -f "$build_dir/package.json" ]; then
+  # Found package.json; installing any npm dependencies
+  status "Installing npm dependencies"
+  npm install --production 2>&1 | indent
+fi
+
+# Compile project using Roots
+$build_dir/node_modules/roots/bin/roots compile
+
+# Copy superstatic dependency to node_modules
+cp -r $bp_dir/node_modules/superstatic $build_dir/node_modules/
+
+# Create a Procfile
+status "Creating a static server Procfile"
+echo "web: ./node_modules/harp/bin/superstatic public . -p \$PORT" > $build_dir/Procfile
+
+# Update the PATH
+# status "Building runtime environment"
+mkdir -p $build_dir/.profile.d
+echo "export PATH=\"\$HOME/vendor/node/bin:\$HOME/bin:\$HOME/node_modules/.bin:\$PATH\";export NODE_ENV=${NODE_ENV:production}" > $build_dir/.profile.d/nodejs.sh
