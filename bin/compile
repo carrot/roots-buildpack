@@ -39,15 +39,15 @@ if [ -f "$build_dir/package.json" ]; then
   npm install --production 2>&1 | indent
 fi
 
-# Compile project using Roots
-# $build_dir/node_modules/roots/bin/roots compile
-
 # Copy superstatic dependency to node_modules
 cp -r $bp_dir/node_modules/superstatic $build_dir/node_modules/
 
 # Create a Procfile
 status "Creating a static server Procfile"
 echo "web: ./node_modules/harp/bin/superstatic public . -p \$PORT" > $build_dir/Procfile
+
+# Compile project using Roots
+$build_dir/node_modules/roots/bin/roots compile
 
 # Update the PATH
 # status "Building runtime environment"
