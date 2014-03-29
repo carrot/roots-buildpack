@@ -40,7 +40,7 @@ if [ -f "$build_dir/package.json" ]; then
 fi
 
 # Compile project using Roots
-$build_dir/node_modules/roots/bin/roots compile
+# $build_dir/node_modules/roots/bin/roots compile
 
 # Copy superstatic dependency to node_modules
 cp -r $bp_dir/node_modules/superstatic $build_dir/node_modules/
