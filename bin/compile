@@ -47,7 +47,7 @@ status "Creating a superstatic server Procfile"
 echo "web: ./node_modules/superstatic/bin/superstatic.js public --port \$PORT" > $build_dir/Procfile
 
 # Compile project using Roots
-$build_dir/node_modules/roots/bin/roots compile | status
+$build_dir/node_modules/roots/bin/roots compile
 
 # Update the PATH
 # status "Building runtime environment"
