@@ -2,6 +2,10 @@
 
 This is a [buildpack](https://devcenter.heroku.com/articles/buildpacks) for deploying static sites to Heroku. It's powered by [Roots](http://roots.cx/), a static site compiler that takes advantage of modern pre-processing technologies.
 
+Example usage:
+- http://roots-buildpack-sample.herokuapp.com/
+- https://github.com/carrot/roots-buildpack-sample/
+
 ## Why should you care?
 This buildpack represents one of the easiest and most powerful ways to host your static site. It allows the advantages of:
 
