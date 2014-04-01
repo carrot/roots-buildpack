@@ -14,7 +14,7 @@ bp_dir=$(cd $(dirname $0); cd ..; pwd)
 source $bp_dir/bin/common.sh
 
 # Output npm debug info on error
-trap cat_npm_debug_log ERR
+# trap cat_npm_debug_log ERR
 
 # Fetch the latest stable node version from semver.io
 node_version=$(curl --silent --get https://semver.io/node/stable)
