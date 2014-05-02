@@ -17,6 +17,8 @@ Go forth and precompile all the things...
 
 ## Usage
 
+Make sure to include roots as a dependency in your `package.json`.
+
 ```sh
 roots new my-roots-app
 cd my-roots-app
