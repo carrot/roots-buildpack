@@ -83,12 +83,12 @@ cp -r $build_dir/.heroku $cache_dir/node
 # Create a node_modules directory if one doesn't already exist
 mkdir -p $build_dir/node_modules
 
-# Copy superstatic dependency to node_modules
-cp -r $bp_dir/node_modules/superstatic $build_dir/node_modules/
+# Copy charge dependency to node_modules
+cp -r $bp_dir/node_modules/charge $build_dir/node_modules/
 
 # Create a Procfile
-status "Creating a superstatic server Procfile"
-echo "web: ./node_modules/superstatic/bin/superstatic.js public --port \$PORT" > $build_dir/Procfile
+status "Creating a Charge server Procfile"
+echo "web: ./node_modules/charge/bin/charge public --port \$PORT" > $build_dir/Procfile
 
 # Compile project using Roots
 status "Compiling Roots Project"

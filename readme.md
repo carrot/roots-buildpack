@@ -11,7 +11,7 @@ This buildpack represents one of the easiest and most powerful ways to host your
 
 - Building with the full power of Roots
 - The power of Heroku's git push interface
-- The routing control of Superstatic
+- The routing control of Charge
 
 Go forth and precompile all the things...
 
@@ -31,26 +31,34 @@ git push heroku master
 heroku open
 ```
 
-### Configuration
-This buildpack serves your site using [Divshot.io's](http://divshot.io/) excellent [Superstatic](https://github.com/divshot/superstatic). To take advantage of it's full power, you can add a `superstatic.json` file at the root of your project which can do some really nice routing tricks and more. Below is an example of the power of Superstatic.
+> **Note:** you must have `roots` as a dependency in your `package.json` file for the site to properly compile on Heroku!
 
+### Configuration
+This buildpack serves your site using [Charge](https://github.com/carrot/charge). To take advantage of it's full power, you can add a `charge.json` file at the root of your project which can do some really nice routing tricks and more. Below is an example of the power of Superstatic.
+
+`charge.json`  
 ```json
-# superstatic.json
 {
   "clean_urls": true,
-  "routes": {
-    "app/**":"application.html",
-    "projects/*/edit":"projects.html"
-  },
+  "error_page": "error.html",
+  "auth": "username:password",
+  "exclude": ["some_file", "*/another.file"],
   "cache_control": {
-    "nocache/**": false,
-    "**/*.html": 600,
-    "private/**": "private, max-age=1200"
-  }
+    "**": 3600000
+  },
+  "routes": {
+    "**": "index.html"
+  },
+  "write": {
+    "content": "hello!"
+  },
+  "url": "/static",
+  "gzip": true,
+  "log": "tiny"
 }
 ```
 
-For more information on how to configure the static site server, refer to Superstatic's [documentation](https://github.com/divshot/superstatic#configuration).
+For more information on how to configure the static site server, refer to Charge's [documentation](https://github.com/carrot/charge#options).
 
 ## Issues
 - For now you must set your `output` directory to `public` in your `app.coffee`  [Roots configuration](http://roots.readthedocs.org/en/latest/configuration.html#options).
@@ -59,7 +67,7 @@ For more information on how to configure the static site server, refer to Supers
 
 ## Acknowledgements
 - The majority of the buildpack logic is based off of Heroku's own [zeke/harp-buildpack](https://github.com/zeke/harp-buildpack), so thank you Zeke.
-- The static server of choice is [divshot/superstatic](https://github.com/divshot/superstatic) made by the folks at [Divshot.io](http://divshot.io). Despite being in the static serving business, they chose to make this project open-source and that is super commendable.
+- [Charge](https://github.com/carrot/charge) was inspired by the folks at [Divshot.io](http://divshot.io) and their [Superstatic](http://github.com/divshot/superstatic) project. Despite being in the static serving business, they chose to make this project open-source and that is super commendable.
 
 ## License
 
