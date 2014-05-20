@@ -1,0 +1,28 @@
+{
+  "name": "roots-buildpack",
+  "version": "0.0.1",
+  "description": "A heroku buildpack for compiling and serving Roots projects",
+  "main": "index.js",
+  "dependencies": {
+    "charge": "0.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/carrot/roots-buildpack.git"
+  },
+  "keywords": [
+    "roots",
+    "heroku",
+    "buildpack"
+  ],
+  "author": "Kyle MacDonald",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/carrot/roots-buildpack/issues"
+  },
+  "homepage": "https://github.com/carrot/roots-buildpack"
+}
