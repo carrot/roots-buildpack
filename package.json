@@ -4,7 +4,7 @@
   "description": "A heroku buildpack for compiling and serving Roots projects",
   "main": "index.js",
   "dependencies": {
-    "charge": "0.0.2"
+    "charge": "0.0.3"
   },
   "devDependencies": {},
   "scripts": {
