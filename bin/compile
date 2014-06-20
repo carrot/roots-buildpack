@@ -92,7 +92,7 @@ echo "web: ./node_modules/charge/bin/charge public --port \$PORT" > $build_dir/P
 
 # Compile project using Roots
 status "Compiling Roots Project"
-$build_dir/node_modules/roots/bin/roots compile -q
+$build_dir/node_modules/roots/bin/roots compile
 
 # Update the PATH
 # status "Building runtime environment"
